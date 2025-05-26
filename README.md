@@ -16,6 +16,10 @@ The Option 1: GET Report option should give answer in this format:
 }
 
 There should be other options as well for every other field.
+Option 2: Number of words
+Option 3: Number of sentences
+Option 4: Count of numbers
+Option 5: Most common word
 
 **Code must include**
 - Class (if applicable: All 4 OOP principles, static, class methods, property decorators, dataclasses, use at least 3 python magic methods)
