@@ -2,7 +2,6 @@
 from logging_info import LoggingInfo
 import re
 from collections import Counter
-from text_validator import TextValidator
 
    
 class TextAnalyser:
