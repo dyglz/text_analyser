@@ -1,59 +1,54 @@
-# IKI KITOS SAVAITES ANTRADIENIO 
-# class, method, ir tada CLI dali
 
 from logging_info import LoggingInfo
 import re
-import string
+from collections import Counter
+from text_validator import TextValidator
 
-
-LoggingInfo.configure_logging()
-LoggingInfo.log_info("App is running.")
-
-text = "Python's popularity...3 !  has grown? significantly in recent years. largely due to its versatility and the .growing demand for data  . analysis and .artificial@ intelligence []? applications!"
-
-class TextValidator:
-    @staticmethod
-    def text_lenght(text: str) -> bool:
-        sentence_count = text.count(".") + text.count("?") + text.count("!")
-        if sentence_count >= 5:
-           LoggingInfo.log_info("User entered >= 5 sentences")
-           return True
-        else:
-            LoggingInfo.log_warning("User entered < 5 sentences")
-            return False
-    
-    @staticmethod    
-    def text_formatting(text: str) -> str:
-        if not TextValidator.text_lenght(text):
-            return "Text is too short. Must contain at least 5 sentences."
-        
-        formated_sentences = []
-        sentences = re.split(r'(?<=[.?!])\s*', text.strip())
-              
-        for sentence in sentences: 
-            sentence = re.sub(r'\s+([.?!])', r'\1', sentence)
-            if sentence in string.punctuation:
-                LoggingInfo.log_info("Ignoring sentences with only punctuation signs.")
-                pass      
-            elif sentence:
-                formated_sentences.append(sentence[0].upper() + sentence[1:])
-                
-        return ' '.join(formated_sentences)
-            
-                    
-       
+   
 class TextAnalyser:
     
     @staticmethod
-    def number_of_words():
-        pass
+    def number_of_sentences(formatted_text: str) -> int:
+        return formatted_text.count(".") + formatted_text.count("?") + formatted_text.count("!")
+        
+    @staticmethod
+    def number_of_words(formatted_text: str) -> int:
+        words = re.findall(r"\b[\w']+\b", formatted_text)
+        return len(words)
+    
+    @staticmethod
+    def count_of_numbers(formatted_text: str) -> int:
+        numbers_count = len(re.findall(r"\d+", formatted_text))
+        if numbers_count > 0:
+            return numbers_count
+        else:
+            return 0
+    
+    @staticmethod
+    def most_common_word(formatted_text: str) -> str:
+        words = re.findall(r"\b[\w']+\b", formatted_text.lower())
+        most_common = Counter(words).most_common(1)
+        if most_common:
+            return most_common[0][0]
+        else:
+            return f"No text found..."
+        
+    @staticmethod
+    def text_report(formatted_text: str) -> dict:
+        report = {
+            "fixed_text": formatted_text,
+            "number_of_words": TextAnalyser.number_of_words(formatted_text),
+            "number_of_sentences": TextAnalyser.number_of_sentences(formatted_text),
+            "count_of_numbers": TextAnalyser.count_of_numbers(formatted_text),
+            "most common word": TextAnalyser.most_common_word(formatted_text)
+        }
+        # for key, value in report.items():
+        #     print(f"{key}: {value}")
+        return report
+
         
         
         
         
         
-        
-        
-        
-print(TextValidator.text_lenght(text))
-print(TextValidator.text_formatting(text))
+
