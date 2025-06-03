@@ -1,8 +1,9 @@
 
-from logging_info import LoggingInfo
 import re
 from collections import Counter
+from typing import Dict
 
+# change to dataclass?
    
 class TextAnalyser:
     
@@ -33,18 +34,19 @@ class TextAnalyser:
             return f"No text found..."
         
     @staticmethod
-    def text_report(formatted_text: str) -> dict:
-        report = {
-            "fixed_text": formatted_text,
-            "number_of_words": TextAnalyser.number_of_words(formatted_text),
-            "number_of_sentences": TextAnalyser.number_of_sentences(formatted_text),
-            "count_of_numbers": TextAnalyser.count_of_numbers(formatted_text),
-            "most common word": TextAnalyser.most_common_word(formatted_text)
-        }
-        # for key, value in report.items():
-        #     print(f"{key}: {value}")
-        return report
-
+    def text_report(formatted_text: str) -> Dict:
+        if formatted_text:
+            return {
+                "fixed_text": formatted_text,
+                "number_of_words": TextAnalyser.number_of_words(formatted_text),
+                "number_of_sentences": TextAnalyser.number_of_sentences(formatted_text),
+                "count_of_numbers": TextAnalyser.count_of_numbers(formatted_text),
+                "most common word": TextAnalyser.most_common_word(formatted_text)
+            }
+            # for key, value in report.items():
+            #     print(f"{key}: {value}")
+        else:
+            return f"No text found..."
         
         
         

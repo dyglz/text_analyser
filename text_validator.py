@@ -1,15 +1,16 @@
 
-from typing import Optional
+from typing import List
 from logging_info import LoggingInfo
 import re
 import string
 
 
 class TextValidator:
+    def __init__(self, text: str) -> None:
+        self.text = text
     
-    @staticmethod
-    def validate_text_lenght(text: str) -> bool:
-        sentence_count = text.count(".") + text.count("?") + text.count("!")
+    def validate_text_lenght(self) -> bool:
+        sentence_count = self.text.count(".") + self.text.count("?") + self.text.count("!")
         if sentence_count >= 5:
             LoggingInfo.log_info("User entered >= 5 sentences. Trying to format the text.")      
             return True
@@ -17,16 +18,15 @@ class TextValidator:
             LoggingInfo.log_warning("User entered < 5 sentences.")
             return False
     
-    @staticmethod
-    def text_formatting(text: str) -> str:
-        formatted_sentences = []
-        sentences = re.split(r'(?<=[.?!])\s*', text.strip())
+    def text_formatting(self) -> str:
+        formatted_sentences: List[str] = []
+        sentences = re.split(r'(?<=[.?!])\s*', self.text.strip())
               
         for sentence in sentences: 
             sentence = re.sub(r'\s+([.?!])', r'\1', sentence)
             if sentence in string.punctuation:
                 LoggingInfo.log_info("Ignoring sentences with only punctuation signs.")
-                pass      
+                continue      
             elif sentence:
                 formatted_sentences.append(sentence[0].upper() + sentence[1:])
         

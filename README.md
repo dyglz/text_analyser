@@ -29,6 +29,4 @@ Option 5: Most common word [✔]
 - Github Repo
 
 ---
-to improve:
-- how to treat "..." in user input?
-- most common word function
+

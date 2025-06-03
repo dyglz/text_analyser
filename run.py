@@ -22,8 +22,9 @@ while True:
             elif menu_selection == 1:
                 LoggingInfo.log_info("User is entering text.")
                 text = input("\nEnter your text (minimum 5 sentences): ")
-                if TextValidator.validate_text_lenght(text):
-                    formatted_sentences = TextValidator.text_formatting(text)
+                validator = TextValidator(text)
+                if validator.validate_text_lenght():
+                    formatted_sentences = validator.text_formatting()
                     print("Text entered successfully!")
                     print(f"\n{formatted_sentences}")
                 else:
@@ -35,15 +36,15 @@ while True:
             elif menu_selection == 3:
                 print("---------  Number of words  ---------")
                 print(TextAnalyser.number_of_words(formatted_sentences))
-                LoggingInfo.log_info("Dsiplaying number of words.")              
+                LoggingInfo.log_info("Displaying number of words.")              
             elif menu_selection == 4:
                 print("---------  Number of sentences  ---------")
                 print(TextAnalyser.number_of_sentences(formatted_sentences))
-                LoggingInfo.log_info("Dsiplaying number of sentences.")               
+                LoggingInfo.log_info("Displaying number of sentences.")               
             elif menu_selection == 5:
                 print("---------  Count of numbers  ---------")
                 print(TextAnalyser.count_of_numbers(formatted_sentences))
-                LoggingInfo.log_info("Dsiplaying count of numbers.")              
+                LoggingInfo.log_info("Displaying count of numbers.")              
             elif menu_selection == 6:
                 print("---------  Most common word  ---------")
                 print(TextAnalyser.most_common_word(formatted_sentences))
