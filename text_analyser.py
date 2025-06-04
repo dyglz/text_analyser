@@ -2,51 +2,47 @@
 import re
 from collections import Counter
 from typing import Dict
+from dataclasses import dataclass
 
-# change to dataclass?
-   
+
+@dataclass
 class TextAnalyser:
-    
-    @staticmethod
-    def number_of_sentences(formatted_text: str) -> int:
-        return formatted_text.count(".") + formatted_text.count("?") + formatted_text.count("!")
+    text: str
+
+    @property
+    def number_of_sentences(self) -> int:
+        return self.text.count(".") + self.text.count("?") + self.text.count("!")
         
-    @staticmethod
-    def number_of_words(formatted_text: str) -> int:
-        words = re.findall(r"\b[\w']+\b", formatted_text)
+    @property
+    def number_of_words(self) -> int:
+        words = re.findall(r"\b[\w']+\b", self.text)
         return len(words)
     
-    @staticmethod
-    def count_of_numbers(formatted_text: str) -> int:
-        numbers_count = len(re.findall(r"\d+", formatted_text))
-        if numbers_count > 0:
-            return numbers_count
-        else:
-            return 0
+    @property
+    def count_of_numbers(self) -> int:
+        numbers_count = len(re.findall(r"\d+", self.text))
+        return numbers_count
     
-    @staticmethod
-    def most_common_word(formatted_text: str) -> str:
-        words = re.findall(r"\b[\w']+\b", formatted_text.lower())
+    @property
+    def most_common_word(self) -> str:
+        words = re.findall(r"\b[\w']+\b", self.text.lower())
         most_common = Counter(words).most_common(1)
-        if most_common:
+        if most_common and most_common[0][1] > 1:
             return most_common[0][0]
         else:
-            return f"No text found..."
+            return f"No most common word found..."
         
-    @staticmethod
-    def text_report(formatted_text: str) -> Dict:
-        if formatted_text:
-            return {
-                "fixed_text": formatted_text,
-                "number_of_words": TextAnalyser.number_of_words(formatted_text),
-                "number_of_sentences": TextAnalyser.number_of_sentences(formatted_text),
-                "count_of_numbers": TextAnalyser.count_of_numbers(formatted_text),
-                "most common word": TextAnalyser.most_common_word(formatted_text)
-            }
-            # for key, value in report.items():
-            #     print(f"{key}: {value}")
-        else:
-            return f"No text found..."
+        
+    def text_report(self) -> Dict:
+        return {
+            "fixed_text": self.text,
+            "number_of_words": self.number_of_words,
+            "number_of_sentences": self.number_of_sentences,
+            "count_of_numbers": self.count_of_numbers,
+            "most common word": self.most_common_word
+        }
+
+
         
         
         

@@ -5,8 +5,9 @@ from text_validator import TextValidator
 LoggingInfo.configure_logging()
 LoggingInfo.log_info("App is running.")
 formatted_sentences = ""
+analyser = None
 
-# text = "Python's popularity...!  has 3 grown? significantly in recent years. largely due to its versatility and the .growing4 demand for data  . analysis and .artificial@ intelligence []? applications! What is this @all about..?5"
+# text_example = Python's popularity...!  has 3 grown? significantly in recent years. largely due to its versatility and the .growing4 demand for data  . analysis and .artificial@ intelligence []? applications! What is this @all about..?5
 
 while True:
     print("===   Text Analyser   ===")
@@ -25,30 +26,46 @@ while True:
                 validator = TextValidator(text)
                 if validator.validate_text_lenght():
                     formatted_sentences = validator.text_formatting()
-                    print("Text entered successfully!")
-                    print(f"\n{formatted_sentences}")
+                    analyser = TextAnalyser(formatted_sentences)
+                    print("\nText entered successfully!")
+                    print(f"{formatted_sentences}")
                 else:
-                    print("Text is too short. Must contain at least 5 sentences.")                
+                    print("Text is too short. Must contain at least 5 sentences.\n")                
             elif menu_selection == 2:
-                print("----  Text Report  ----")
-                print(TextAnalyser.text_report(formatted_sentences))
-                LoggingInfo.log_info("Displaying text report.")                        
+                if analyser:
+                    print("------  Text Report  -------")
+                    print(analyser.text_report())
+                    LoggingInfo.log_info("Displaying text report.")
+                else:
+                    print("No text entered yet...\n")                  
             elif menu_selection == 3:
-                print("---------  Number of words  ---------")
-                print(TextAnalyser.number_of_words(formatted_sentences))
-                LoggingInfo.log_info("Displaying number of words.")              
+                if analyser:
+                    print("----  Number of words  -----")
+                    print(analyser.number_of_words)
+                    LoggingInfo.log_info("Displaying number of words.")              
+                else:
+                    print("No text entered yet...\n") 
             elif menu_selection == 4:
-                print("---------  Number of sentences  ---------")
-                print(TextAnalyser.number_of_sentences(formatted_sentences))
-                LoggingInfo.log_info("Displaying number of sentences.")               
+                if analyser:
+                    print("---  Number of sentences  --")
+                    print(analyser.number_of_sentences)
+                    LoggingInfo.log_info("Displaying number of sentences.")               
+                else:
+                    print("No text entered yet...\n") 
             elif menu_selection == 5:
-                print("---------  Count of numbers  ---------")
-                print(TextAnalyser.count_of_numbers(formatted_sentences))
-                LoggingInfo.log_info("Displaying count of numbers.")              
+                if analyser:
+                    print("----  Count of numbers  ----")
+                    print(analyser.count_of_numbers)
+                    LoggingInfo.log_info("Displaying count of numbers.")
+                else:
+                    print("No text entered yet...\n") 
             elif menu_selection == 6:
-                print("---------  Most common word  ---------")
-                print(TextAnalyser.most_common_word(formatted_sentences))
-                LoggingInfo.log_info("Displaying most common word.")          
+                if analyser:
+                    print("----  Most common word  ----")
+                    print(analyser.most_common_word)
+                    LoggingInfo.log_info("Displaying most common word.")
+                else:
+                    print("No text entered yet...\n") 
         else:
             print("Invalid selection!\n")
             LoggingInfo.log_warning("User Entered Non Existing Number in Menu Selection.")
