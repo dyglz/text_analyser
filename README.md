@@ -1,8 +1,18 @@
 ### text_analyser
 ---
-- [✔] deadline 27/05/2025
+- [ ] deadline 17/06/2025
 
-**💡 Objective:**  
+---
+
+**💡 Objective 2**  
+Refactor prompt analyzer. Move back end logic to Flask application
+and dockerize it. Mongo DB part will follow later with lectures.
+The application itself must serve only UI and all data operations must
+be served through container as API layer.
+
+---
+
+**💡 Objective 1**  
 Create a CLI (Command-Line Interface application) application that would let user enter random lentgh text (minimum 5 sentences).
 This random text then should be cleaned: All words which start after end of sentence should start with capital letter, there should be a gap after comma.
 
@@ -29,4 +39,6 @@ Option 5: Most common word [✔]
 - Github Repo
 
 ---
+
+
 

@@ -10,11 +10,11 @@ class TextAnalyser:
     text: str
 
     @property
-    def number_of_sentences(self) -> int:
+    def count_of_sentences(self) -> int:
         return self.text.count(".") + self.text.count("?") + self.text.count("!")
         
     @property
-    def number_of_words(self) -> int:
+    def count_of_words(self) -> int:
         words = re.findall(r"\b[\w']+\b", self.text)
         return len(words)
     
@@ -36,8 +36,8 @@ class TextAnalyser:
     def text_report(self) -> Dict:
         return {
             "fixed_text": self.text,
-            "number_of_words": self.number_of_words,
-            "number_of_sentences": self.number_of_sentences,
+            "number_of_words": self.count_of_words,
+            "number_of_sentences": self.count_of_sentences,
             "count_of_numbers": self.count_of_numbers,
             "most common word": self.most_common_word
         }
