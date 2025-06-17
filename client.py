@@ -1,9 +1,12 @@
+
 import requests
 from logging_info import LoggingInfo
+
 
 API_URL = "http://localhost:8000"
 
 # text_example = Python's popularity...!  has 3 grown? significantly in recent years. largely due to its versatility and the .growing4 demand for data  . analysis and .artificial@ intelligence []? applications! What is this @all about..?5
+
 
 def main():
     while True:
@@ -61,3 +64,4 @@ def main():
     
 if __name__ == "__main__":
     main()
+    

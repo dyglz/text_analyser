@@ -1,3 +1,4 @@
+
 from flask import Flask, jsonify, request
 import json
 import os
@@ -6,6 +7,7 @@ from typing import Optional, Dict, List
 from logging_info import LoggingInfo
 from text_analyser import TextAnalyser
 from text_validator import TextValidator
+
 
 app = Flask(__name__)
 LoggingInfo.configure_logging()
@@ -26,7 +28,6 @@ def save_to_file(data: List[Dict[str, str]]) -> None:
         json.dump(data, saved_texts, indent=2)
     
 db: List[Dict[str, str]] = load_from_file()
-
 
 
 @app.route('/enter_text', methods=['POST'])
@@ -79,6 +80,7 @@ def count_of_words():
     else:
         return jsonify({"error": "No text entered yet..."}), 400
    
+   
 @app.route('/count_of_sentences', methods=['GET'])
 def count_of_sentences():
     analyser = get_analyser()
@@ -87,6 +89,7 @@ def count_of_sentences():
         return jsonify({"sentence_count": analyser.count_of_sentences}), 200
     else:
         return jsonify({"error": "No text entered yet..."}), 400
+
 
 @app.route('/count_of_numbers', methods=['GET'])
 def count_of_numbers():
@@ -109,7 +112,7 @@ def most_common_word():
 
 
 
+
 if __name__ == "__main__":
     print("...starting flask app...")
     app.run(host='0.0.0.0', port=8000, debug=True)
-

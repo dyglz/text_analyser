@@ -41,11 +41,3 @@ class TextAnalyser:
             "count_of_numbers": self.count_of_numbers,
             "most common word": self.most_common_word
         }
-
-
-        
-        
-        
-        
-        
-

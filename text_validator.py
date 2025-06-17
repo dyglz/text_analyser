@@ -32,4 +32,3 @@ class TextValidator:
         
         LoggingInfo.log_info("Text is formatted.")       
         return ' '.join(formatted_text)
-            
